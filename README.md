@@ -1,2 +1,0 @@
-# qb-fakeplate
-QB-Fakeplate
