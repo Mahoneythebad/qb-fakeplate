@@ -1,18 +1,6 @@
-QBCore = nil
+local QBCore = exports['qb-core']:GetCoreObject()
 
-Citizen.CreateThread(function() 
-    while true do
-        Citizen.Wait(10)
-        if QBCore == nil then
-            TriggerEvent("QBCore:GetObject", function(obj) QBCore = obj end)    
-            Citizen.Wait(200)
-        end
-    end
-end)
-
-
-RegisterNetEvent("qb-fakeplate:getplate")
-AddEventHandler("qb-fakeplate:getplate", function()
+RegisterNetEvent("qb-fakeplate:getplate", function()
     local nvehicle = QBCore.Functions.GetClosestVehicle()
     local vehicle = GetVehicleNumberPlateText(nvehicle)
     print(vehicle)
@@ -24,7 +12,7 @@ function loadAnimDict(dict)
     while not HasAnimDictLoaded(dict) do
         RequestAnimDict(dict)
         
-        Citizen.Wait(1)
+        Wait(1)
     end
 end
 
@@ -72,8 +60,8 @@ function replaceplate()
         ClearPedTasksImmediately(PlayerPedId())
     end)
 end
-RegisterNetEvent("qb-fakeplate:removeplate")
-AddEventHandler("qb-fakeplate:removeplate", function()
+
+RegisterNetEvent("qb-fakeplate:removeplate", function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     QBCore.Functions.TriggerCallback('vehiclekeys:CheckOwnership', function(result)
         if not result then -- if not player owned
@@ -94,8 +82,7 @@ end)
 
 
 
-RegisterNetEvent("qb-fakeplate:placeplate")
-AddEventHandler("qb-fakeplate:placeplate", function()
+RegisterNetEvent("qb-fakeplate:placeplate", function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local vehicleplate =  GetVehicleNumberPlateText(vehicle)
     local nearbyv = GetEntityCoords(vehicle)
